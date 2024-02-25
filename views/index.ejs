@@ -1,29 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Notes</title>
-    <link rel="stylesheet" href="styles/styles.css">
-</head>
-<body>
-    <h1>Liblary</h1>
-    <p>Notes your finished books 📚.</p>
-    <% result.forEach((data) => { %>
-        <div class="book">
+<%- include("partials/header.ejs") %>
+    
+    <div class="container mt-5">
+        <form action="/sort" method="POST">
+            <label for="sort">Sort by:</label>
+
+            <select name="sort" id="sort">
+            <option value="recency">Recency</option>
+            <option value="rating">Rating</option>
+            </select>
+            <input type="submit" value="Sort" class="btn-sort mt-3" />
+        </form>
+
+        <form action="/create" method="get" class="text-right">
+            <input type="submit" value="Add book" class="button">
+        </form>
+        <hr>
+        <% result.forEach((data) => { %>
             <% const callBookCover = () => {
-                return `https://covers.openlibrary.org/b/isbn/${data.isbn}-M.jpg`;
+                return `https://covers.openlibrary.org/b/isbn/${data.isbn}-L.jpg`;
             }
             let img = callBookCover();
             %>
-            <h2><%= data.title %></h2>
-            <img src=<%= img %> alt="book cover">
-            <h3><%= data.author %></h3>
-            <h3><%= data.publisher %></h3>
-            <p><%= data.review %></p>
-            <p><%= data.rating %></p>
-        </div>
-    <% }) %>
-    
-</body>
-</html>
+            <div class="card-flex mb-5">
+                <img src=<%= img %> class="img-size" alt="book cover">
+                <div class="card-body">
+                <h3 class="card-title"><%= data.title %></h3>
+                <h5 class="card-title mt-2">Author : <%= data.author %></h5>
+                <h5 class="card-title">Publisher : <%= data.publisher %></h5>
+                <p class="card-text mt-2">Review : <br><%= data.review %></p>
+                <p class="card-text">Rating : <%= data.rating %>/5</p>
+                <div class="form-btn">
+                    <form action="/edit/<%= data.id %>" method="GET" class="form-edit">
+                      <input type="submit" value="Edit" class="btn btn-primary btn-edit" />
+                    </form>
+                    <form action="/delete/<%= data.id %>" method="GET" >
+                      <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Do you want to delete this book?');"/>
+                    </form>
+                  </div>
+                </div>
+            </div>
+        <% }) %>
+        
+    </div>
+    <%- include("partials/footer.ejs") %>

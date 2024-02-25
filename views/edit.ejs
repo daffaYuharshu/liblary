@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Notes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <style>
+      *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+body {
+    background-color: #FEFAE0;
+}
+.nav-color{
+    background-color: #5F6F52;
+}
+.text-white{
+    color: white;
+}
+.text-hero{
+    font-size: 2.5rem;
+}
+.card-flex{
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    text-align: justify;
+    background-color: #A9B388;
+    border-radius: 10px;
+    box-shadow: 7px 7px 3px #5F6F52;
+    padding: 1.5rem;
+}
+.img-size{
+    width: 12rem;
+}
+.text-right{
+    text-align: right;
+}
+.button{
+    background-color: #B99470;
+    color: white;
+    padding: 3px 6px;
+    border-color: #b8793b;
+    border-radius: 15px;
+}
+.button:hover{
+    background-color: #b19d89;
+    border-color: #B99470;
+}
+footer{
+    text-align: center;
+}
+.btn-add {
+    padding: 3px 6px;
+    background-color: #A9B388;
+    color: white;
+    border-color: #8fa34d;
+    border-radius: 5px;
+}
+.btn-add:hover{
+    background-color: #5F6F52;
+}
+.form-btn{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+    </style>
+</head>
+<body>
+    <nav class="navbar nav-color">
+        <div class="container-fluid" style="justify-content: center;">
+          <span class="navbar-brand mb-0 h1 text-white text-hero">Liblary: notes your finished books 📚</span>
+        </div>
+    </nav><div class="container mt-5  ">
+    <main class="main-create">
+        <h2 style="color: #B99470;">Edit Book</h2>
+        <form action="/edit/<%= data.id %>" method="POST">
+          <div class="mb-3">
+            <label for="title">Title:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="exampleFormControlInput1"
+              placeholder="Title"
+              name="title"
+              value="<%= data.title %>"
+              readonly
+            />
+          </div>
+          <div class="mb-3">
+            <label for="review">Review:</label>
+            <textarea
+              class="form-control"
+              id="exampleFormControlTextarea1"
+              rows="3"
+              name="review"
+              placeholder="Review"
+            ><%= data.review %></textarea>
+          </div>
+          <label for="rating">Rating:</label>
+
+        <select name="rating" id="rating">
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+        <option value=5>5</option>
+        </select>
+        <br>
+          <input type="submit" value="Update" class="btn-add mt-3" />
+        </form>
+      </main>
+</div>
+
+<%- include("partials/footer.ejs") %>
