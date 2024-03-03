@@ -1,5 +1,6 @@
 const express = require("express");
 const pg = require("pg");
+require('dotenv').config()
 
 const app = express();
 const port = 3000;
@@ -8,7 +9,7 @@ const db = new pg.Client({
     user: "postgres",
     host: "localhost",
     database: "library",
-    password: "ltdmoon123",
+    password: process.env.PG_PASSWORD,
     port: 5432,
 });
 
