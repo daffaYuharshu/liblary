@@ -1,23 +1,24 @@
 const express = require("express");
 const pg = require("pg");
+const path = require('path');
 require('dotenv').config()
+const { Pool } = pg;
 
 const app = express();
 const port = 3000;
 
-const db = new pg.Client({
-    user: "postgres",
-    host: "localhost",
-    database: "library",
-    password: process.env.PG_PASSWORD,
-    port: 5432,
-});
+
+const db = new Pool({
+  connectionString: process.env.POSTGRES_URL ,
+})
 
 db.connect();
 
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({extended: true}));
-
+app.set('view engine', 'ejs')
+app.engine('ejs', require('ejs').__express);
+app.set('views', __dirname + '/views')
 
 app.get("/", async(req, res) => {
     const result = await db.query("SELECT * FROM my_book ORDER BY id ASC;");
